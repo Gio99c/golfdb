@@ -1,4 +1,11 @@
+.venv
+
 idea/
 data/videos_160
+data/kaggle_blurred
 *.pkl
 *.tar
+
+__pycache__/
+*.pyc
+.DS_Store
