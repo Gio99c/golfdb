@@ -108,7 +108,7 @@ def main():
     and runs head analysis on each.
     """
 
-    top_level_dir = "event_output"  # or wherever your subfolders of frames are
+    top_level_dir = "event" 
     # Make sure this directory exists
     if not os.path.isdir(top_level_dir):
         print(f"Top-level dir {top_level_dir} doesn't exist!")
