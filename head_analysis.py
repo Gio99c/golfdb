@@ -39,14 +39,15 @@ def detect_head_center_pose(image_bgr, landmarks_to_use=[0, 2, 5, 7, 8]):
 # -----------------------------
 mp_face_mesh = mp.solutions.face_mesh
 
-def detect_head_center_facemesh(image_bgr):
+def detect_head_center_facemesh(image_bgr, min_confidence=0.3):
     """
     Uses MediaPipe Face Mesh to detect dense facial landmarks.
-    Returns the average (x,y) (in pixels) of all detected landmarks
-    (i.e. the approximate center of the face), or None if no face is detected.
+    Returns the average (x,y) in pixels of the detected landmarks,
+    or None if no face is detected.
     """
     image_rgb = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
-    with mp_face_mesh.FaceMesh(static_image_mode=True, max_num_faces=1, min_detection_confidence=0.5) as face_mesh:
+    with mp_face_mesh.FaceMesh(static_image_mode=True, max_num_faces=1,
+                                min_detection_confidence=min_confidence) as face_mesh:
         results = face_mesh.process(image_rgb)
     if not results.multi_face_landmarks:
         return None
@@ -152,7 +153,7 @@ def analyze_swing_head_advanced(folder_path, threshold=0.1):
     # Get displacements from pose method
     pose_metrics = compute_head_displacements(keyframes, detect_head_center_pose)
     # Get displacements from face mesh method
-    facemesh_metrics = compute_head_displacements(keyframes, detect_head_center_facemesh)
+    facemesh_metrics = compute_head_displacements(keyframes, lambda img: detect_head_center_facemesh(img, min_confidence=0.3))
     
     if pose_metrics is None and facemesh_metrics is None:
         print(f"[{folder_path}] Both methods failed.")
