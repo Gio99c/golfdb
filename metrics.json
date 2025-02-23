@@ -1,0 +1,142 @@
+[
+  {
+    "folder": "AB0531",
+    "pose_max_disp_norm": 0.06575314852668308,
+    "yolo_max_disp_norm": 0.6679135528658858,
+    "yolo_avg_iou": 0.18329539895057678,
+    "optical_flow_max_disp_norm": 0.01815054151746962
+  },
+  {
+    "folder": "AB1101",
+    "pose_max_disp_norm": 0.04670954441984108,
+    "yolo_max_disp_norm": 1.0980369274475943,
+    "yolo_avg_iou": 0.04067982733249664,
+    "optical_flow_max_disp_norm": 0.02898890177408854
+  },
+  {
+    "folder": "ADR1018",
+    "pose_max_disp_norm": 0.03864489176786603,
+    "yolo_max_disp_norm": 0.3383938057786432,
+    "yolo_avg_iou": 0.4338565170764923,
+    "optical_flow_max_disp_norm": 0.03490051693386502
+  },
+  {
+    "folder": "AF1004",
+    "pose_max_disp_norm": 0.03432447206085757,
+    "yolo_max_disp_norm": 0.43732607760686093,
+    "yolo_avg_iou": 0.3408831059932709,
+    "optical_flow_max_disp_norm": 0.038538085089789495
+  },
+  {
+    "folder": "AW0923",
+    "pose_max_disp_norm": 0.013499962932624102,
+    "yolo_max_disp_norm": 0.1519144471022815,
+    "yolo_avg_iou": 0.6056743860244751,
+    "optical_flow_max_disp_norm": 0.015351613362630209
+  },
+  {
+    "folder": "AZ0719",
+    "pose_max_disp_norm": 0.04521033531546026,
+    "yolo_max_disp_norm": 0.59052291245727,
+    "yolo_avg_iou": 0.47146785259246826,
+    "optical_flow_max_disp_norm": 0.02921808030870226
+  },
+  {
+    "folder": "BS1106",
+    "pose_max_disp_norm": 0.03277163163222469,
+    "yolo_max_disp_norm": 0.5445430545790239,
+    "yolo_avg_iou": 0.39531248807907104,
+    "optical_flow_max_disp_norm": 0.05962113274468316
+  },
+  {
+    "folder": "CB0110",
+    "pose_max_disp_norm": 0.023708305889855716,
+    "yolo_max_disp_norm": 0.39672729199682816,
+    "yolo_avg_iou": 0.4094896912574768,
+    "optical_flow_max_disp_norm": 0.029388194613986545
+  },
+  {
+    "folder": "CG0113",
+    "pose_max_disp_norm": 0.07065760386109039,
+    "yolo_max_disp_norm": 0.18997884534674844,
+    "yolo_avg_iou": 0.6210069060325623,
+    "optical_flow_max_disp_norm": 0.00935423109266493
+  },
+  {
+    "folder": "CL0205",
+    "pose_max_disp_norm": 0.10227718458559802,
+    "yolo_max_disp_norm": null,
+    "yolo_avg_iou": null,
+    "optical_flow_max_disp_norm": 0.10309986538357205
+  },
+  {
+    "folder": "CM0110",
+    "pose_max_disp_norm": 0.049967686626329916,
+    "yolo_max_disp_norm": null,
+    "yolo_avg_iou": null,
+    "optical_flow_max_disp_norm": 0.030922741360134547
+  },
+  {
+    "folder": "CR0924",
+    "pose_max_disp_norm": 0.06211866675619228,
+    "yolo_max_disp_norm": null,
+    "yolo_avg_iou": null,
+    "optical_flow_max_disp_norm": 0.046111043294270834
+  },
+  {
+    "folder": "CR0108",
+    "pose_max_disp_norm": 0.02461253744440077,
+    "yolo_max_disp_norm": null,
+    "yolo_avg_iou": null,
+    "optical_flow_max_disp_norm": 0.02988188001844618
+  },
+  {
+    "folder": "DG1112",
+    "pose_max_disp_norm": 0.03796347575869408,
+    "yolo_max_disp_norm": 0.07207006106591687,
+    "yolo_avg_iou": 0.8598060011863708,
+    "optical_flow_max_disp_norm": 0.07300160725911459
+  },
+  {
+    "folder": "DJ1101",
+    "pose_max_disp_norm": 0.09142247364850599,
+    "yolo_max_disp_norm": 1.0646017386908426,
+    "yolo_avg_iou": 0.0,
+    "optical_flow_max_disp_norm": 0.14646152920193142
+  },
+  {
+    "folder": "DJ0927",
+    "pose_max_disp_norm": 0.05151346279577253,
+    "yolo_max_disp_norm": 0.08199875981347604,
+    "yolo_avg_iou": 0.8114748001098633,
+    "optical_flow_max_disp_norm": 0.15175103081597222
+  },
+  {
+    "folder": "DT0815",
+    "pose_max_disp_norm": 0.053531905998886624,
+    "yolo_max_disp_norm": 0.6657080506168791,
+    "yolo_avg_iou": 0.15846562385559082,
+    "optical_flow_max_disp_norm": 0.03146769205729167
+  },
+  {
+    "folder": "EE0429",
+    "pose_max_disp_norm": 0.02845532620247209,
+    "yolo_max_disp_norm": 0.26017834197269807,
+    "yolo_avg_iou": 0.6295620799064636,
+    "optical_flow_max_disp_norm": 0.018532710605197483
+  },
+  {
+    "folder": "HR0816",
+    "pose_max_disp_norm": 0.03148576947112918,
+    "yolo_max_disp_norm": null,
+    "yolo_avg_iou": null,
+    "optical_flow_max_disp_norm": 0.05254817538791233
+  },
+  {
+    "folder": "IA0914",
+    "pose_max_disp_norm": 0.03566192297130781,
+    "yolo_max_disp_norm": 0.17094165189952176,
+    "yolo_avg_iou": 0.6978839635848999,
+    "optical_flow_max_disp_norm": 0.0372062259250217
+  }
+]
