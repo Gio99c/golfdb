@@ -5,7 +5,11 @@ data/videos_160
 data/kaggle_blurred
 *.pkl
 *.tar
+event/
+logs/
+
 
 __pycache__/
 *.pyc
+*.pt
 .DS_Store
