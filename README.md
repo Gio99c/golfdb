@@ -1,60 +1,99 @@
-# GolfDB: A Video Database for Golf Swing Sequencing
+# **Head Movement Analysis in Golf Swings - Custom Scripts**
 
-The code in this repository is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/). 
+Below is a brief overview of the **additional** scripts that expand on the original GolfDB repository. These scripts handle video preprocessing, head-movement analysis, and unsupervised clustering for swing classification. For core information on GolfDB and SwingNet usage (training, evaluating, etc.), please refer to the [original GolfDB repository](https://github.com/wmcnally/golfdb).
 
-## Introduction
-GolfDB is a high-quality video dataset created for general recognition applications 
-in the sport of golf, and specifically for the task of golf swing sequencing. 
+---
 
-This repo contains a simple PyTorch implemention of the SwingNet baseline model presented in the 
-[paper](https://arxiv.org/abs/1903.06528).
-The model was trained on split 1 **without any data augmentation** and achieved an average PCE of 71.5% (PCE
-of 76.1% reported in the paper is credited to data augmentation including horizontal flipping and affine 
-transformations). 
+## **1. Preprocessing Videos: `preprocess_custom.py`**
 
-If you use this repo please cite the GolfDB paper:
-```
-@InProceedings{McNally_2019_CVPR_Workshops,
-author = {McNally, William and Vats, Kanav and Pinto, Tyler and Dulhanty, Chris and McPhee, John and Wong, Alexander},
-title = {GolfDB: A Video Database for Golf Swing Sequencing},
-booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
-month = {June},
-year = {2019}
-}
+### **Description**
+- Resizes and center-crops raw videos to **160x160** resolution.
+- Produces output videos ready for **SwingNet** inference or custom analysis.
+
+### **Usage**
+- Place raw videos in `data/kaggle_blurred/`.
+- The script outputs processed videos in `data/videos_160/`.
+
+### **Run the script**
+```bash
+python preprocess_custom.py
 ```
 
-## Dependencies
-* [PyTorch](https://pytorch.org/)
+---
 
-## Getting Started
-Run [generate_splits.py](./data/generate_splits.py) to convert the .mat dataset file to a dataframe and 
-generate the 4 splits.
+## **2. Extracting Head Movement Metrics: `head_analysis.py`**
 
-### Train
-* I have provided the preprocessed video clips for a frame size of 160x160 (download 
-[here](https://drive.google.com/file/d/1uBwRxFxW04EqG87VCoX3l6vXeV5T5JYJ/view?usp=sharing)). 
-Place 'videos_160' in the [data](./data/) directory. 
-If you wish to use a different input configuration you must download the YouTube videos (URLs provided in 
-dataset) and preprocess the videos yourself. I have provided [preprocess_videos.py](./data/preprocess_videos.py) to
-help with that.
+### **Description**
+- Analyzes **Address**, **Top**, and **Impact** frames to derive:
+  1. **Pose-based** head displacement.
+  2. **YOLO-based** head bounding box displacement + IoU.
+  3. **Optical flow** displacement in the head region.
+- Saves results as a JSON file (`metrics.json`).
 
-* Download the MobileNetV2 pretrained weights from this [repository](https://github.com/tonylins/pytorch-mobilenet-v2) 
-and place 'mobilenet_v2.pth.tar' in the root directory. 
+### **Input Requirements**
+- A folder structure under `event/` with subfolders for each swing, containing:
+  - `Address.jpg`
+  - `Top.jpg`
+  - `Impact.jpg`
+- A pretrained YOLO model (e.g., `yolov8n-head.pt`).
 
-* Run [train.py](train.py)
+### **Run the script**
+```bash
+python head_analysis.py
+```
 
-### Evaluate
-* Train your own model by following the steps above or download the pre-trained weights 
-[here](https://drive.google.com/file/d/1MBIDwHSM8OKRbxS8YfyRLnUBAdt0nupW/view?usp=sharing). Create a 'models' directory
-if not already created and place 'swingnet_1800.pth.tar' in this directory.
+**Output**:
+- `metrics.json` containing per-swing metrics.
 
-* Run [eval.py](eval.py). If using the pre-trained weights provided, the PCE should be 0.715.  
+---
 
-### Test your own video
-* Follow steps above to download pre-trained weights. Then in the terminal: `python3 test_video.py -p test_video.mp4`
+## **3. Visualizing Head Movement: `head_analysis_visualize.py`**
 
-* **Note:** This code requires the sample video to be cropped and cut to bound a single golf swing. 
-I used online video [cropping](https://ezgif.com/crop-video) and [cutting](https://online-video-cutter.com/) 
-tools for my golf swing video. See test_video.mp4 for reference.
+### **Description**
+- Generates **visual overlays**:
+  - Pose landmarks (shoulders, nose, refined head).
+  - YOLO bounding box.
+  - Optical flow arrows between frames.
+- Saves annotated images under `logs/`.
 
-Good luck!
+### **Run the script**
+```bash
+python head_analysis_visualize.py
+```
+
+**Output**:
+- In `logs/<subfolder>`, you get files like `Address_pose.jpg`, `Top_yolo.jpg`, `Address_Top_flow.jpg`, etc.
+
+---
+
+## **4. Clustering and Classification: `cluster_analysis.py`**
+
+### **Description**
+- Reads `metrics.json`.
+- Imputes missing values (e.g., YOLO fails in some frames).
+- Standardizes numeric features.
+- Runs **t-SNE** for 2D visualization.
+- Performs **k-means** clustering (`k=2`) to separate “good” vs. “bad” swings.
+- Saves results to `classified_results.json` and a plot `clustering_results_kmeans.png`.
+
+### **Run the script**
+```bash
+python cluster_analysis.py
+```
+
+**Output**:
+- `classified_results.json`
+- `clustering_results_kmeans.png` (t-SNE + cluster assignments)
+
+---
+
+## **Summary of Scripts**
+
+| **Script**               | **Purpose**                                                         | **Output**                                |
+|--------------------------|---------------------------------------------------------------------|-------------------------------------------|
+| `preprocess_custom.py`   | Resize & center-crop videos to 160x160                              | `data/videos_160/` (processed videos)     |
+| `head_analysis.py`       | Compute pose, YOLO, & optical flow metrics for Address–Top–Impact   | `metrics.json`                            |
+| `head_analysis_visualize.py` | Generate overlay images for pose, detection, and flow                | Visual files under `logs/`                |
+| `cluster_analysis.py`    | Cluster swings (via t-SNE + k-means) into good/bad categories       | `classified_results.json`, cluster plots  |
+
+Use these scripts to **preprocess your data, track head movement, and unsupervisedly categorize** golf swings based on head stability.
